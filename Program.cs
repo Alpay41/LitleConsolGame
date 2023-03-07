@@ -21,6 +21,9 @@
 
             bool sagAlt = (senSutun == toplamSutun && senSatır == toplamSatir);
             bool sagAltCevre = ((senSutun == toplamSutun-1 && senSatır == toplamSatir) || (senSutun == toplamSutun - 1 && senSatır == toplamSatir-1) || (senSutun == toplamSutun - 1 && senSatır == toplamSatir));
+
+           
+
             while (true)
             {
 
@@ -32,10 +35,8 @@
                     if (senSatır == 1 && senSutun == 1)
                     {
                         Console.Write( sen );
-                        //if (senKonum == sagAltCevre) Console.WriteLine(senCevre);
-                      
-
-                    }
+                            //if (senKonum == sagAltCevre) Console.WriteLine(senCevre);
+                     }
                     
                     else Console.Write(zemin);
                 }
@@ -43,8 +44,8 @@
             }
             ConsoleKey kullaniciYon = Console.ReadKey().Key;
 
-            } 
-
+            }
+            
 
 
 
