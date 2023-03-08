@@ -4,53 +4,74 @@
     {
         static void Main(string[] args)
         {
-           
-            string sen = " ☻ " , zemin = " * ", senCevre = " ♦ ";
-            int senSutun = 6, toplamSutun = 10;
-            int senSatır = 5, toplamSatir = 10;
-            //int senKonum
+
+            string sen = " ☻ ", zemin = " * ", senCevre = " ♦ ";
+            int senSutun = 1, toplamSutun = 10;
+            int senSatir = 1, toplamSatir = 10;
+
+            bool sol = (senSutun == 1);
+            //bool solCevre = (senKonum != satir );
+            bool solUst = (senSutun == 1 && senSatir == 1);
+            bool solUstCevre = ((senSutun == 1 && senSatir == 2) || (senSutun == 2 && senSatir == 1) || (senSutun == 2 && senSatir == 2));
+
+            bool alt = (senSatir == toplamSatir);
+
+            bool solAlt = (senSutun == 1 && senSatir == toplamSatir);
+            bool solAltCevre = ((senSutun == 1 && senSatir == toplamSatir-1) || (senSutun == 2 && senSatir == toplamSatir - 2) || (senSutun == 2 && senSatir == toplamSatir));
+
+            bool sag = (senSutun == toplamSutun);
+
+            bool sagUst = (senSutun == toplamSutun && senSatir == 1);
+            bool sagUstCevre = ((senSutun == toplamSutun && senSatir == 2) || (senSutun == toplamSutun-1 && senSatir == 1) || (senSutun == toplamSutun && senSatir == toplamSatir-1));
+
+            bool ust = (senSatir == 1);
+
+            bool sagAlt = (senSutun == toplamSutun && senSatir == toplamSatir);
+            bool sagAltCevre = ((senSutun == toplamSutun-1 && senSatir == toplamSatir) || (senSutun == toplamSutun - 1 && senSatir == toplamSatir-1) || (senSutun == toplamSutun - 1 && senSatir == toplamSatir));
             
-            bool solUst = (senSutun == 1 && senSatır == 1);
-            bool solUstCevre = ((senSutun == 1 && senSatır == 2) || (senSutun == 2 && senSatır == 1) || (senSutun == 2 && senSatır == 2));
 
-            bool solAlt = (senSutun == 1 && senSatır == toplamSatir);
-            bool solAltCevre = ((senSutun == 1 && senSatır == toplamSatir-1) || (senSutun == 2 && senSatır == toplamSatir - 2) || (senSutun == 2 && senSatır == toplamSatir));
-
-            bool sagUst = (senSutun == toplamSutun && senSatır == 1);
-            bool sagUstCevre = ((senSutun == toplamSutun && senSatır == 2) || (senSutun == toplamSutun-1 && senSatır == 1) || (senSutun == toplamSutun && senSatır == toplamSatir-1));
-
-            bool sagAlt = (senSutun == toplamSutun && senSatır == toplamSatir);
-            bool sagAltCevre = ((senSutun == toplamSutun-1 && senSatır == toplamSatir) || (senSutun == toplamSutun - 1 && senSatır == toplamSatir-1) || (senSutun == toplamSutun - 1 && senSatır == toplamSatir));
-
-           
 
             while (true)
             {
-
-            for (senSutun = 1; senSutun < toplamSutun; senSutun++)
-            {
-
-                for (senSatır = 1; senSatır < toplamSatir; senSatır++)
+                Console.Clear();
+                for (int satir = 1; satir <= toplamSatir; satir++)
                 {
-                    if (senSatır == 1 && senSutun == 1)
+                    for (int sutun = 1; sutun <= toplamSutun; sutun++)
                     {
-                        Console.Write( sen );
-                            //if (senKonum == sagAltCevre) Console.WriteLine(senCevre);
-                     }
-                    
-                    else Console.Write(zemin);
+                        bool senKonum = satir == senSatir && sutun == senSutun;
+
+                        //if (senKonum == altCevre) Console.Write(senCevre);
+                        //if (senKonum == ustCevre) Console.Write(senCevre);
+                        //if (senKonum == sagCevre) Console.Write(senCevre);
+                        //if (senKonum == solCevre) Console.Write(senCevre);
+                        //if (senKonum == sagAltCevre) Console.Write(senCevre);
+                        //if (senKonum == sagUstCevre) Console.Write(senCevre);
+                        //if (senKonum == solAltCevre) Console.Write(senCevre);
+                        //if (senKonum == solUstCevre) Console.Write(senCevre);
+                        
+
+                        if (senKonum) Console.Write(sen);
+                        else Console.Write(zemin);
+                    }
+                    Console.WriteLine();
                 }
-                    Console.WriteLine(zemin);
-            }
-            ConsoleKey kullaniciYon = Console.ReadKey().Key;
+                ConsoleKey basilanTus = Console.ReadKey().Key;
+
+                if (basilanTus == ConsoleKey.UpArrow    && senSatir != 1) senSatir--;
+                if (basilanTus == ConsoleKey.DownArrow  && senSatir != toplamSatir) senSatir++;
+                if (basilanTus == ConsoleKey.LeftArrow  && senSutun != 1) senSutun--;
+                if (basilanTus == ConsoleKey.RightArrow && senSutun != toplamSutun) senSutun++;
+                //if (basilanTus == ConsoleKey.NumPad1    && senSatir != toplamSatir && senSutun != 1) senSatir--; senSutun--;
+                if (basilanTus == ConsoleKey.NumPad2    && senSatir != toplamSatir) senSatir++;
+                //if (basilanTus == ConsoleKey.NumPad3    && senSatir != toplamSatir && senSutun != toplamSutun) senSatir++; senSutun++;
+                if (basilanTus == ConsoleKey.NumPad4    && senSutun != 1) senSutun--;
+                //if (basilanTus == ConsoleKey.NumPad5) 
+                if (basilanTus == ConsoleKey.NumPad6    && senSutun != toplamSutun) senSutun++;
+                //if (basilanTus == ConsoleKey.NumPad7    && senSatir != 1 && senSutun != 1) senSatir--; senSutun--;
+                if (basilanTus == ConsoleKey.NumPad8    && senSatir != 1) senSatir--;
+                //if (basilanTus == ConsoleKey.NumPad9    && senSatir != 1 && senSutun !=toplamSutun ) senSatir--; senSutun++;
 
             }
-            
-
-
-
-            //Console.Clear();
-        } 
+        }
     }
-
-}
+}   
