@@ -4,32 +4,10 @@
     {
         static void Main(string[] args)
         {
-
             string sen = " ☻ ", zemin = " * ", senCevre = " ♦ ";
             int senSutun = 1, toplamSutun = 10;
             int senSatir = 1, toplamSatir = 10;
-
-            bool sol = (senSutun == 1);
-            //bool solCevre = (senKonum != satir );
-            bool solUst = (senSutun == 1 && senSatir == 1);
-            bool solUstCevre = ((senSutun == 1 && senSatir == 2) || (senSutun == 2 && senSatir == 1) || (senSutun == 2 && senSatir == 2));
-
-            bool alt = (senSatir == toplamSatir);
-
-            bool solAlt = (senSutun == 1 && senSatir == toplamSatir);
-            bool solAltCevre = ((senSutun == 1 && senSatir == toplamSatir-1) || (senSutun == 2 && senSatir == toplamSatir - 2) || (senSutun == 2 && senSatir == toplamSatir));
-
-            bool sag = (senSutun == toplamSutun);
-
-            bool sagUst = (senSutun == toplamSutun && senSatir == 1);
-            bool sagUstCevre = ((senSutun == toplamSutun && senSatir == 2) || (senSutun == toplamSutun-1 && senSatir == 1) || (senSutun == toplamSutun && senSatir == toplamSatir-1));
-
-            bool ust = (senSatir == 1);
-
-            bool sagAlt = (senSutun == toplamSutun && senSatir == toplamSatir);
-            bool sagAltCevre = ((senSutun == toplamSutun-1 && senSatir == toplamSatir) || (senSutun == toplamSutun - 1 && senSatir == toplamSatir-1) || (senSutun == toplamSutun - 1 && senSatir == toplamSatir));
-            
-
+           
 
             while (true)
             {
@@ -38,40 +16,110 @@
                 {
                     for (int sutun = 1; sutun <= toplamSutun; sutun++)
                     {
-                        bool senKonum = satir == senSatir && sutun == senSutun;
+                         bool senMi = satir == senSatir && sutun == senSutun;
+                        #region Köşeler
+                        #region Sol Üst Köşe
+                        bool senSolUstKonum = senSatir == 1 && senSutun == 1;
+                        bool senSolUstCevre = (satir == 1 && sutun == 2) || 
+                                              (satir == 2 && sutun == 1) ||
+                                              (satir == 2 && sutun == 2);
+                        #endregion
+                        #region Sol Alt Köşe
+                        bool senSolAltKonum = senSatir == toplamSatir && senSutun == 1;
+                        bool senSolAltCevre = (satir == toplamSatir -1 && sutun == 1) ||
+                                              (satir == toplamSatir -1 && sutun == 2) ||
+                                              (satir == toplamSatir && sutun == 2);
+                        #endregion
+                        #region Sag Üst Köşe
+                        bool senSagUstKonum = senSatir == 1 && senSutun == toplamSutun;
+                        bool senSagUstCevre = (satir == 1 && sutun == toplamSutun) ||
+                                              (satir == 2 && sutun == toplamSutun - 1) ||
+                                              (satir == 2 && sutun == toplamSutun - 1);
+                        #endregion
+                        #region Sag Alt Köşe
+                        bool senSagAltKonum = senSatir == toplamSatir && senSutun == toplamSutun;
+                        bool senSagAltCevre = (satir == toplamSatir - 1 && sutun == toplamSutun) ||
+                                              (satir == toplamSatir - 1 && sutun == toplamSutun - 1) ||
+                                              (satir == toplamSatir && sutun == toplamSutun - 1);
+                        #endregion
+                        #endregion
+                        #region Kenarlar
+                        #region ÜstAltKenar
+                        bool senUstKenarKonum = senSatir == 1 && senSutun > 1 && senSutun < toplamSutun;
+                        bool senAltKenarKonum = senSatir == toplamSatir && senSutun > 1 && senSutun < toplamSutun;
 
-                        //if (senKonum == altCevre) Console.Write(senCevre);
-                        //if (senKonum == ustCevre) Console.Write(senCevre);
-                        //if (senKonum == sagCevre) Console.Write(senCevre);
-                        //if (senKonum == solCevre) Console.Write(senCevre);
-                        //if (senKonum == sagAltCevre) Console.Write(senCevre);
-                        //if (senKonum == sagUstCevre) Console.Write(senCevre);
-                        //if (senKonum == solAltCevre) Console.Write(senCevre);
-                        //if (senKonum == solUstCevre) Console.Write(senCevre);
-                        
+                        bool senUstAltKenarCevre =
+                                          satir == senSatir && (sutun == senSutun - 1 || sutun == senSutun + 1) ||
+                                         (satir == senSatir + 1 || satir == senSatir - 1) && sutun == senSutun ||
+                                         (satir == senSatir + 1 || satir == senSatir - 1) && sutun == senSutun + 1;
+                        #endregion
+                        #region SolKenar
+                        bool senSolKenarKonum = (senSatir > 1 && senSatir < toplamSatir) && senSutun == 1;
 
-                        if (senKonum) Console.Write(sen);
+                        bool senSolKenarCevre = (sutun == senSutun || sutun == senSutun + 1 ) &&
+                                                ((satir == senSatir - 1 && sutun == senSutun) ||
+                                                (satir == senSatir - 1 && sutun == senSutun + 1) ||
+                                                (satir == senSatir && sutun == senSutun + 1) ||
+                                                (satir == senSatir + 1 && sutun == senSutun) ||
+                                                (satir == senSatir + 1 && sutun == senSutun + 1));
+
+                        #endregion
+                        #region SagKenar
+                        bool senSagKenarKonum = (senSatir > 1 && senSatir < toplamSatir) && senSutun == toplamSutun;
+
+                        bool senSagKenarCevre = (sutun == toplamSutun || sutun == toplamSutun - 1) &&
+                                        ((satir == senSatir - 1 && sutun == senSutun) ||
+                                        (satir == senSatir - 1 && sutun == senSutun - 1) ||
+                                        (satir == senSatir && sutun == senSutun - 1) ||
+                                        (satir == senSatir + 1 && sutun == senSutun - 1) ||
+                                        (satir == senSatir + 1 && sutun == senSutun ));
+                        #endregion
+                        #endregion
+                        #region Orta
+                        bool senOrtaKonum = senSatir > 1 && senSatir < toplamSatir && senSutun > 1 && senSutun < toplamSutun;
+
+                        bool senOrtaCevre = (satir == senSatir - 1 && sutun == senSutun - 1) ||
+                                            (satir == senSatir - 1 && sutun == senSutun) ||
+                                            (satir == senSatir - 1 && sutun == senSutun + 1) ||
+                                            (satir == senSatir && sutun == senSutun - 1) ||
+                                            (satir == senSatir && sutun == senSutun + 1) ||
+                                            (satir == senSatir + 1 && sutun == senSutun - 1) ||
+                                            (satir == senSatir + 1 && sutun == senSutun) ||
+                                            (satir == senSatir + 1 && sutun == senSutun + 1);
+
+                        #endregion
+                        #region Çevremi
+                        bool cevreMi = (senSolUstKonum && senSolUstCevre) ||
+                                       (senSolAltKonum && senSolAltCevre) ||
+                                       (senSagUstKonum && senSagUstCevre) ||
+                                       (senSagAltKonum && senSagAltCevre) ||
+                                       ((senSolUstKonum || senSagAltKonum) && senUstAltKenarCevre) ||
+                                       (senSolKenarKonum && senSolKenarCevre) ||
+                                       (senSagKenarKonum && senSagKenarCevre) ||
+                                       (senOrtaCevre);
+                        #endregion
+
+
+                        if (senMi) Console.Write(sen);
+                        else if (cevreMi)Console.Write(senCevre);
                         else Console.Write(zemin);
                     }
                     Console.WriteLine();
                 }
                 ConsoleKey basilanTus = Console.ReadKey().Key;
 
-                if (basilanTus == ConsoleKey.UpArrow    && senSatir != 1) senSatir--;
-                if (basilanTus == ConsoleKey.DownArrow  && senSatir != toplamSatir) senSatir++;
-                if (basilanTus == ConsoleKey.LeftArrow  && senSutun != 1) senSutun--;
-                if (basilanTus == ConsoleKey.RightArrow && senSutun != toplamSutun) senSutun++;
-                //if (basilanTus == ConsoleKey.NumPad1    && senSatir != toplamSatir && senSutun != 1) senSatir--; senSutun--;
-                if (basilanTus == ConsoleKey.NumPad2    && senSatir != toplamSatir) senSatir++;
-                //if (basilanTus == ConsoleKey.NumPad3    && senSatir != toplamSatir && senSutun != toplamSutun) senSatir++; senSutun++;
-                if (basilanTus == ConsoleKey.NumPad4    && senSutun != 1) senSutun--;
+                if (basilanTus == ConsoleKey.NumPad1 && senSatir != toplamSatir && senSutun != 1) { senSatir++; senSutun--; }
+                if (basilanTus == ConsoleKey.NumPad2 || basilanTus == ConsoleKey.DownArrow && senSatir != toplamSatir) senSatir++;
+                if (basilanTus == ConsoleKey.NumPad3 && senSatir != toplamSatir && senSutun != toplamSutun) { senSatir++; senSutun++; }
+                if (basilanTus == ConsoleKey.NumPad4 || basilanTus == ConsoleKey.LeftArrow && senSutun != 1) senSutun--;
                 //if (basilanTus == ConsoleKey.NumPad5) 
-                if (basilanTus == ConsoleKey.NumPad6    && senSutun != toplamSutun) senSutun++;
-                //if (basilanTus == ConsoleKey.NumPad7    && senSatir != 1 && senSutun != 1) senSatir--; senSutun--;
-                if (basilanTus == ConsoleKey.NumPad8    && senSatir != 1) senSatir--;
-                //if (basilanTus == ConsoleKey.NumPad9    && senSatir != 1 && senSutun !=toplamSutun ) senSatir--; senSutun++;
+                if (basilanTus == ConsoleKey.NumPad6 || basilanTus == ConsoleKey.RightArrow && senSutun != toplamSutun) senSutun++;
+                if (basilanTus == ConsoleKey.NumPad7 && senSatir != 1 && senSutun != 1) { senSatir--; senSutun--; }
+                if (basilanTus == ConsoleKey.NumPad8 || basilanTus == ConsoleKey.UpArrow && senSatir != 1) senSatir--;
+                if (basilanTus == ConsoleKey.NumPad9 && senSatir != 1 && senSutun != toplamSutun) { senSatir--; senSutun++; }
 
+               
             }
         }
     }
-}   
+} 
